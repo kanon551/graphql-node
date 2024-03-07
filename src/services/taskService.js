@@ -21,7 +21,9 @@ const createTask = async(title, description, due_date, assignee) => {
             const result = await event.save();
             const cretor = await getUser(result._doc.creator)
 
-            createdEvnt = { ...result._doc, _id: event._doc._id.toString(), creator: cretor };
+            createdEvnt = { ...result._doc, _id: event._doc._id.toString(),  
+                due_date: new Date(event._doc.due_date).toISOString(),
+                 creator: cretor };
 
             const registeredUser =  await User.findById('65e9425f976140ac30e4209f');
 
@@ -55,6 +57,7 @@ const GetAllTasks = async() => {
                     return {
                         ...event._doc,
                         _id: event.id,
+                        due_date: new Date(event._doc.due_date).toISOString(),
                         creator: obtainedUser,
                     };
                 })
@@ -131,6 +134,7 @@ const events = async(eventIDs, depth = 0) => {
                     return {
                         ...event._doc,
                         _id: event.id,
+                        due_date: new Date(event._doc.due_date).toISOString(),
                         creator: obtainedUser,
                     };
                 })
