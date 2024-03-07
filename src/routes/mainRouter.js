@@ -1,8 +1,9 @@
 const express = require('express');
-const exampleRouter = require('./exampleRouter');
+const graphqlMiddleware = require('../middleware/graphqlMiddleware');
+
 
 const mainRouter = express.Router();
 
-    mainRouter.use("/example", exampleRouter);
+    mainRouter.use('/graphql', graphqlMiddleware);
 
 module.exports = mainRouter

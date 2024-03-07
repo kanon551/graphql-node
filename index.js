@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-
+const bodyParser = require('body-parser');
 const path = require('path');
-
+const mongoose = require('mongoose'); // Import mongoose
 const dotenv = require("dotenv").config();
 const app = express();
 const cookieParser = require('cookie-parser');
@@ -16,38 +16,19 @@ const morganMiddleware  = require('./src/middleware/morganMiddleware');
 
 const { errorHandler, handle404 } = require('./src/middleware/errorHandler');
 
+// Import connectDb from your connection file
+const { connectDb } = require('./src/config/mongoConnection');
 
+// Call connectDb to establish the database connection
+connectDb();
 
 
 server.listen(port, async () => {
     logger.info(`Server is running on port ${port}`);
 });
 
-// if (process.env.NODE_ENV === 'development') {
-//     require('./src/utils/swagger')(app);
-// }
 
-
-var io = require('socket.io')(server, {
-  cors: {
-    origin: '*',
-  }
-});
-
-io.on('connection', function (socket) {
-   console.log("user connected - ", socket.id)
-  logger.info(`Web Socket | User Connected  = ${socket.id}`)
-  socket.on('disconnect', function () {
-    console.log('user disconnected', socket.id);
-    logger.info(`Web Socket | User Disconnected  = ${socket.id}`)
-    socket.disconnect();
-  });
-});
-
-app.set('socketio', io);
-
-
-
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors({ origin: true, credentials: true }));
 const frontend = path.resolve(__dirname, '../build_customer');
