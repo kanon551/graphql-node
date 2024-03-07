@@ -1,69 +1,56 @@
-## 1. Make sure controller always is in this format
---------------------------------------------------
+# Real-time Collaborative Task Manager
+## Description
+Create a web-based task management application where multiple users can collaborate
+on tasks in real time. The application aims to provide a seamless and efficient way for
+teams to manage tasks collaboratively.
 
-//@desc {method} {personal description}
+1. User Authentication and Authorization
+● User Registration: Users should be able to register, log in, and manage their
+profiles.
+● JWT-based Authentication: Implement JWT-based authentication to secure user
+endpoints.
+● Role Differentiation: Differentiate between regular users and administrators with
+appropriate permissions.
+2. CRUD Operations for Tasks
+● Task Management: Allow users to create, read, update, and delete tasks.
+● Task Attributes: Tasks should have attributes such as title, description, due date, and
+assignee.
+● GraphQL Integration: Implement GraphQL queries and mutations for managing tasks.
+3. Real-time Updates
+● GraphQL Subscriptions: Utilize GraphQL subscriptions to enable real-time
+updates for changes made by other users.
+● Instant Updates: Users should see instant updates when others create, update, or
+delete a task.
+● API Focus: No need to build the front end; APIs should be enough.
+4. Node.js Backend with GraphQL API
+● Backend Development: Develop the backend using Node.js to handle business
+logic and task management.
 
-//@route {method} {/endpoint}
-
-//@access {modifier}
-
-const xyz = async(req, res, next) => {
-    try{
-
-            [ ALL YOUR BUSINESS LOGIC ]
-            const response = await callYourFunction(req);
-            return res.status(200).json(responseUtility.build('SUCCESS', response));
-    }
-    catch(error){
-        return next(error)
-    }
-}
-
-## 2. Always wrap entire function in try / catch block. Catch block should only have 1 logger.error and ExceptionalResolver nothing more.
--------------------------------------------------------------------------------------------------------------------------------------------
-
-const callYourFunction = (req) => {
-    try{
-
-            [ ALL YOUR BUSINESS LOGIC ]
-    }
-    catch(err){
-        logger.error(`callYourFunction -> ${err.message}`) // This helps to know at which function error happend.
-        ExceptionResolver(err, null);
-    }
-}
-
-## 3. Always throw ONLY Custom Exceptions check exceptions.js which contains wide variety of Error Classes
-----------------------------------------------------------------------------------------------------------
-
-const callYourFunction = (req) => {
-    try{
-
-            [ ALL YOUR BUSINESS LOGIC ]
-            throw new NotFound(`YOUR CUSTOM MESSAGE`);
-    }
-    catch(err){
-        logger.error(`callYourFunction -> ${err.message}`)
-        ExceptionResolver(err, null);
-    }
-}
-
-## 4. Handling custom thrown errors and system generated errors
------------------------------------------------------------------------------------------------------------
-
-const callYourFunction = (req) => {
-    try{
-
-            [ ALL YOUR BUSINESS LOGIC ]
-            [ SYSTEM GENERATED ERRORS ]
-    }
-    catch(err){
-        logger.error(`callYourFunction -> ${err.message}`)
-        ExceptionResolver(err, 'YOUR PERSONAL MESSAGE');
-
-        // ExceptionResolver takes care of system errors ( OR ELSE )
-        // Provision given to send a personal message also.
-    }
-}
-
-## 5. HAPPY CODIING
+● GraphQL API: Use GraphQL as the API language for efficient and flexible data
+retrieval.
+5. Database Storage
+● Database Choice: Choose a suitable database system (e.g., PostgreSQL,
+MongoDB) for storing task-related information.
+● Database Schema Design: Design the database schema to represent tasks,
+users, and their relationships efficiently.
+6. Authentication and Security
+● Secure Authentication: Implement secure authentication mechanisms to protect
+user accounts and data.
+● Data Security: Ensure that sensitive information is encrypted, and best practices
+for security are followed.
+7. Deployment
+● Provide deployment scripts and documentation for setting up the application in
+various environments.
+Evaluation Criteria
+● User Authentication & Authorization: Ability to implement user authentication and
+authorization using JWT.
+● Real-time Functionality: Proficiency in building a real-time application using
+GraphQL subscriptions.
+● Database Design: Database design skills for efficiently storing and retrieving
+task-related information.
+● Node.js Proficiency: Understanding of Node.js for backend development.
+Bonus Points
+● Task Prioritization: Implement task prioritization features.
+● Notification System: Include a notification system for task updates.
+● Comprehensive Testing: Provide testing for both the frontend and backend
+components.
